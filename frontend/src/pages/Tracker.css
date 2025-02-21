@@ -1,0 +1,128 @@
+.page-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  h2 {
+    color: #34495e;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+  }
+  
+  .input-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+  }
+  
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+  }
+  
+  input[type="date"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="date"]:focus,
+  input[type="number"]:focus {
+    outline: none;
+    border-color: #9b59b6;
+  }
+  
+  button {
+    background: #9b59b6;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  
+  button:hover {
+    background: #8e44ad;
+    transform: translateY(-2px);
+  }
+  
+  .history-section {
+    margin-top: 3rem;
+  }
+  
+  .cycle-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .cycle-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .cycle-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .cycle-item p {
+    margin: 0.5rem 0;
+    color: #2c3e50;
+  }
+  
+  .cycle-item button {
+    background: #e74c3c;
+    margin-top: 1rem;
+  }
+  
+  .cycle-item button:hover {
+    background: #c0392b;
+  }
+  
+  @media (max-width: 768px) {
+    .page-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  
+    .cycle-list {
+      grid-template-columns: 1fr;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
