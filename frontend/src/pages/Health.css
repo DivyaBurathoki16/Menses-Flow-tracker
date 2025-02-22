@@ -1,86 +1,339 @@
-.period-color-guide {
-  background: white;
+.health-container {
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 2rem;
-  border-radius: 15px;
-  margin: 2rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 80px);
+}
+
+.guide-description {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+  margin: 2rem auto 3rem;
+  max-width: 800px;
+  line-height: 1.4;
+  padding: 1rem;
+  border-bottom: 3px solid var(--primary-light);
 }
 
 .color-circles {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin: 2rem 0;
   justify-content: center;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
 }
 
 .color-circle-container {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
+  min-width: 120px;
 }
 
 .color-circle-container:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
 }
 
 .color-circle {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  margin-bottom: 0.5rem;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
 }
 
-.color-circle.selected {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 3px #9b59b6;
+.color-icon {
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.color-circle-container span {
-  font-size: 0.9rem;
-  color: #2c3e50;
+.color-circle:hover .color-icon {
+  opacity: 1;
+}
+
+.color-label {
+  color: var(--text-medium);
+  font-size: 1rem;
   text-align: center;
-}
-
-.color-info {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 10px;
-  margin-top: 2rem;
-  border-left: 4px solid #9b59b6;
-}
-
-.color-info h3 {
-  color: #2c3e50;
-  margin: 0 0 1rem 0;
   text-transform: capitalize;
 }
 
-.color-info p {
-  margin: 0.5rem 0;
-  color: #34495e;
+/* Modal Styling */
+.color-info-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.color-info p strong {
-  color: #2c3e50;
+.color-info-modal {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
 }
 
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  color: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.color-info-content {
+  text-align: center;
+}
+
+.color-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+}
+
+.color-icon-large {
+  font-size: 3rem;
+}
+
+.info-section {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.info-section h3 {
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.info-section p {
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add custom scrollbar for horizontal scroll */
+.color-circles::-webkit-scrollbar {
+  height: 8px;
+}
+
+.color-circles::-webkit-scrollbar-track {
+  background: var(--bg-accent);
+  border-radius: 4px;
+}
+
+.color-circles::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+.color-circles::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  .health-container {
+    padding: 1rem;
+  }
+
   .color-circles {
-    gap: 1rem;
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .color-circle-container {
+    min-width: 100px;
   }
 
   .color-circle {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
   }
 
-  .color-circle-container span {
-    font-size: 0.8rem;
+  .color-icon {
+    font-size: 1.5rem;
+  }
+
+  .color-info-modal {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .guide-description {
+    font-size: 1.2rem;
+    margin: 1.5rem auto 2rem;
+    padding: 0.8rem;
+  }
+}
+
+.cramps-section {
+  margin-top: 4rem;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.section-description {
+  text-align: center;
+  color: var(--text-medium);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.remedies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.remedy-card {
+  background: var(--bg-accent);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  transition: transform 0.3s ease;
+}
+
+.remedy-card:hover {
+  transform: translateY(-5px);
+}
+
+.remedy-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.remedy-card h3 {
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.remedy-card p {
+  color: var(--text-medium);
+  margin-bottom: 1.5rem;
+}
+
+.remedy-tips {
+  list-style: none;
+  padding: 0;
+}
+
+.remedy-tips li {
+  color: var(--text-medium);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.remedy-tips li:last-child {
+  border-bottom: none;
+}
+
+.additional-tips {
+  background: var(--bg-accent);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  margin-top: 2rem;
+}
+
+.additional-tips h3 {
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+}
+
+.additional-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.additional-tips li {
+  color: var(--text-medium);
+  padding: 0.5rem 0;
+  margin-left: 1.5rem;
+  position: relative;
+}
+
+.additional-tips li::before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: -1.5rem;
+}
+
+@media (max-width: 768px) {
+  .cramps-section {
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  .remedies-grid {
+    gap: 1rem;
+  }
+
+  .remedy-card {
+    padding: 1.5rem;
   }
 }
