@@ -1,39 +1,62 @@
-header {
-  background-color: #333;
-  padding: 1rem;
-  margin-bottom: 2rem;
+.header {
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 nav {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  gap: 2rem;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
-nav a {
-  color: white;
+.logo {
+  color: var(--primary-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
   text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
 }
 
-nav a:hover {
-  color: #646cff;
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-medium);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+  background: var(--bg-accent);
+}
+
+.nav-links a.active {
+  color: var(--primary-dark);
+  background: var(--bg-accent);
 }
 
 @media (max-width: 768px) {
-  header {
+  .header {
     padding: 1rem;
   }
-  
-  nav {
+
+  .nav-links {
     gap: 1rem;
   }
-  
-  nav a {
-    font-size: 1rem;
+
+  .nav-links a {
     padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 } 
