@@ -21,6 +21,9 @@ const Header = () => {
           <Link to="/health" className={location.pathname === '/health' ? 'active' : ''}>
             Health
           </Link>
+          <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+            Profile
+          </Link>
         </div>
       </nav>
     </header>

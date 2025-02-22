@@ -9,12 +9,18 @@ const Tracker = () => {
   const [expandedCycle, setExpandedCycle] = useState(null);
   const [cyclePhases, setCyclePhases] = useState(null);
 
+  // Clear cycles when component mounts (page loads/refreshes)
   useEffect(() => {
-    const savedCycles = localStorage.getItem('menstrualCycles');
-    if (savedCycles) {
-      setCycles(JSON.parse(savedCycles));
-    }
+    localStorage.removeItem('menstrualCycles'); // Clear localStorage
+    setCycles([]); // Clear state
   }, []);
+
+  // Save cycles to localStorage whenever they change
+  useEffect(() => {
+    if (cycles.length > 0) {
+      localStorage.setItem('menstrualCycles', JSON.stringify(cycles));
+    }
+  }, [cycles]);
 
   const calculateCyclePhases = (startDate, cycleLength) => {
     const start = new Date(startDate);
@@ -94,39 +100,29 @@ const Tracker = () => {
       return;
     }
 
-    const phases = calculateCyclePhases(lastPeriodDate, cycleLength);
     const newCycle = {
+      id: Date.now(),
       startDate: lastPeriodDate,
       cycleLength: parseInt(cycleLength),
       periodLength: parseInt(periodLength),
-      phases: phases,
-      id: Date.now()
+      phases: calculateCyclePhases(lastPeriodDate, cycleLength)
     };
 
-    const updatedCycles = [...cycles, newCycle];
-    setCycles(updatedCycles);
-    localStorage.setItem('menstrualCycles', JSON.stringify(updatedCycles));
-    setCyclePhases(phases);
+    setCycles([...cycles, newCycle]);
     setLastPeriodDate('');
+    setCyclePhases(calculateCyclePhases(lastPeriodDate, cycleLength));
   };
 
   const deleteCycle = (id) => {
     const updatedCycles = cycles.filter(cycle => cycle.id !== id);
     setCycles(updatedCycles);
-    localStorage.setItem('menstrualCycles', JSON.stringify(updatedCycles));
-    if (expandedCycle === id) {
-      setExpandedCycle(null);
+    if (updatedCycles.length === 0) {
+      localStorage.removeItem('menstrualCycles');
     }
   };
 
   const toggleCycle = (cycleId) => {
-    if (expandedCycle === cycleId) {
-      setExpandedCycle(null);
-    } else {
-      setExpandedCycle(cycleId);
-      const cycle = cycles.find(c => c.id === cycleId);
-      setCyclePhases(cycle.phases);
-    }
+    setExpandedCycle(expandedCycle === cycleId ? null : cycleId);
   };
 
   return (

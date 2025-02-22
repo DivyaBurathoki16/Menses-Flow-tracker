@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Health.css';
 
 const Health = () => {
   const [selectedColor, setSelectedColor] = useState(null);
+  const [cycles, setCycles] = useState([]);
+
+  // Clear cycles when component mounts (page loads/refreshes)
+  useEffect(() => {
+    localStorage.removeItem('menstrualCycles'); // Clear localStorage
+    setCycles([]); // Clear state
+  }, []);
+
+  // Save cycles to localStorage whenever they change
+  useEffect(() => {
+    if (cycles.length > 0) {
+      localStorage.setItem('menstrualCycles', JSON.stringify(cycles));
+    }
+  }, [cycles]);
 
   const colorInfo = {
     brightRed: {
@@ -93,6 +107,33 @@ const Health = () => {
         "Regular sleep schedule",
         "Gentle massage"
       ]
+    }
+  };
+
+  const saveCycle = () => {
+    if (!lastPeriodDate) {
+      alert('Please enter your last period start date');
+      return;
+    }
+
+    const newCycle = {
+      id: Date.now(),
+      startDate: lastPeriodDate,
+      cycleLength: parseInt(cycleLength),
+      periodLength: parseInt(periodLength),
+      phases: calculateCyclePhases(lastPeriodDate, cycleLength)
+    };
+
+    setCycles([...cycles, newCycle]);
+    setLastPeriodDate('');
+    setCyclePhases(null);
+  };
+
+  const deleteCycle = (id) => {
+    const updatedCycles = cycles.filter(cycle => cycle.id !== id);
+    setCycles(updatedCycles);
+    if (updatedCycles.length === 0) {
+      localStorage.removeItem('menstrualCycles');
     }
   };
 
