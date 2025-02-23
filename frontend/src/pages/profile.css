@@ -3,38 +3,49 @@
     margin: 0 auto;
     padding: 2rem;
     min-height: calc(100vh - 80px);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     background-color: var(--bg-primary);
   }
   
-  .auth-card {
+  .profile-header {
     background: var(--bg-secondary);
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
-    width: 100%;
-    max-width: 500px;
-    margin-top: 2rem;
-  }
-  
-  .auth-header {
-    text-align: center;
     margin-bottom: 2rem;
   }
   
-  .auth-header h2 {
+  .profile-header h1 {
     color: var(--primary-dark);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
   
-  .auth-header p {
-    color: var(--text-medium);
+  .profile-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
   }
   
-  .auth-form {
+  .profile-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .profile-card h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .profile-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -51,7 +62,9 @@
     font-weight: 500;
   }
   
-  .form-group input {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     padding: 0.8rem;
     border: 2px solid var(--primary-light);
     border-radius: var(--radius-sm);
@@ -59,77 +72,54 @@
     transition: all 0.3s ease;
   }
   
-  .form-group input:focus {
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(210, 118, 133, 0.2);
   }
   
-  .auth-button {
+  .profile-button {
     background: var(--primary);
     color: white;
     border: none;
-    padding: 1rem;
+    padding: 1rem 2rem;
     border-radius: var(--radius-sm);
-    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 1rem;
   }
   
-  .auth-button:hover {
+  .profile-button:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
   }
   
-  .auth-footer {
-    text-align: center;
-    margin-top: 2rem;
-    color: var(--text-medium);
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
   }
   
-  .toggle-auth-button {
-    background: none;
-    border: none;
-    color: var(--primary);
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0;
-    font-size: inherit;
-  }
-  
-  .toggle-auth-button:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
-  }
-  
-  .error-message {
-    background: #fff2f0;
-    border: 1px solid #ffccc7;
-    color: #ff4d4f;
-    padding: 0.8rem;
+  .stat-card {
+    background: var(--bg-accent);
+    padding: 1.5rem;
     border-radius: var(--radius-sm);
-    margin-bottom: 1rem;
     text-align: center;
   }
   
-  .profile-info {
-    margin: 2rem 0;
+  .stat-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
   }
   
-  .profile-info p {
-    margin: 0.5rem 0;
+  .stat-card p {
     color: var(--text-medium);
-  }
-  
-  .logout-button {
-    background: #ff4d4f;
-    width: 100%;
-  }
-  
-  .logout-button:hover {
-    background: #ff7875;
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   
   @media (max-width: 768px) {
@@ -137,12 +127,35 @@
       padding: 1rem;
     }
   
-    .auth-card {
+    .profile-header {
       padding: 1.5rem;
-      margin-top: 1rem;
     }
   
-    .auth-header h2 {
-      font-size: 1.5rem;
+    .profile-header h1 {
+      font-size: 2rem;
     }
+  
+    .profile-card {
+      padding: 1.5rem;
+    }
+  
+    .profile-button {
+      padding: 0.8rem 1.5rem;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .profile-card {
+    animation: fadeIn 0.5s ease-out forwards;
   }
