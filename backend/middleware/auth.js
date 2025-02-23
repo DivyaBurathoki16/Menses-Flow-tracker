@@ -12,18 +12,36 @@ exports.protect = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: 'Not authorized to access this route'
+        message: 'Please login to access this resource'
       });
     }
 
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id);
-    next();
+    try {
+      // Verify token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      
+      // Check if user still exists
+      const user = await User.findById(decoded.id);
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'User not found'
+        });
+      }
+
+      req.user = user;
+      next();
+    } catch (error) {
+      return res.status(401).json({
+        success: false,
+        message: 'Token is invalid or has expired'
+      });
+    }
   } catch (error) {
-    return res.status(401).json({
+    console.error('Auth middleware error:', error);
+    return res.status(500).json({
       success: false,
-      message: 'Not authorized to access this route'
+      message: 'Internal server error'
     });
   }
 }; 

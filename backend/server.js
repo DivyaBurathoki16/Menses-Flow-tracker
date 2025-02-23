@@ -2,29 +2,38 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
+// Connect to MongoDB
+connectDB();
+
 // Middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // Add your frontend URL
+  credentials: true
+}));
 app.use(express.json());
-app.use(cors());
 
 // Routes
 app.use('/api/auth', authRoutes);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB', err));
-
 // Error handler
 app.use((err, req, res, next) => {
+  console.error(err.stack);
   res.status(err.status || 500).json({
     success: false,
     message: err.message || 'Server Error'
   });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`);
+  server.close(() => process.exit(1));
+}); 
