@@ -1,11 +1,23 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
+require("dotenv").config();  // Load environment variables from .env file
+const express = require("express");  // Import Express
+const mongoose = require("mongoose"); // Import Mongoose for MongoDB
+const cors = require("cors"); // Import CORS to allow frontend access
 
-app.use(cors());
+const app = express();  // Initialize Express app
+app.use(express.json());  // Allows app to read JSON data from requests
+app.use(cors());  // Enable CORS for frontend-backend communication
+ 
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
 
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.jsom());
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB connected!"))
+.catch(err => console.log("❌ MongoDB connection error:", err));
 
-app.use('/user' , require())
+app.listen(5000, () => {
+  console.log("🚀 Server running on http://localhost:5000");
+});

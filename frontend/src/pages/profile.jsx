@@ -6,7 +6,6 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
     name: '',
     age: '',
     cycleLength: '28',
@@ -59,7 +58,6 @@ const Profile = () => {
     setFormData({
       email: '',
       password: '',
-      confirmPassword: '',
       name: '',
       age: '',
       cycleLength: '28',
@@ -98,7 +96,7 @@ const Profile = () => {
           {!isLogin && (
             <>
               <div className="form-group">
-                <label>Name</label>
+                <label>Username</label>
                 <input
                   type="text"
                   name="name"
@@ -146,22 +144,6 @@ const Profile = () => {
               required
             />
           </div>
-
-          {!isLogin && (
-            <>
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Confirm your password"
-                  required
-                />
-              </div>
-            </>
-          )}
 
           <button type="submit" className="auth-button">
             {isLogin ? 'Login' : 'Sign Up'}
