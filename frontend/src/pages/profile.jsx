@@ -1,75 +1,108 @@
-import React, { useState } from 'react';
-import './Profile.css';
+import React, { useState, useEffect } from "react";
+import "./Profile.css";
 
 const Profile = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    age: '',
-    cycleLength: '28',
-    periodLength: '5'
+    email: "",
+    password: "",
+    username: "",
+    age: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const response = await fetch("http://localhost:5000/auth/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          setFormData({
+            email: data.email,
+            username: data.username, // Fix: Use correct key
+            age: data.age || "",
+          });
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
+    const { name, value } = e.target; // Fix: Use 'name' instead of 'username'
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
-    setError(''); // Clear error when user types
+    setError(""); // Clear error when user types
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
+    setError("");
+
     if (!formData.email || !formData.password) {
-      setError('Please fill in all required fields');
+      setError("Please fill in all required fields");
       return;
     }
 
-    if (!isLogin && formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+    try {
+      const url = isLogin
+        ? "http://localhost:5000/auth/login"
+        : "http://localhost:5000/auth/signup";
 
-    // Store user data in localStorage (in real app, this would be a backend call)
-    if (!isLogin) {
-      localStorage.setItem('userData', JSON.stringify(formData));
-    }
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    // Check credentials (in real app, this would be a backend authentication)
-    const storedData = JSON.parse(localStorage.getItem('userData') || '{}');
-    if (isLogin && storedData.email === formData.email && storedData.password === formData.password) {
-      setIsAuthenticated(true);
-    } else if (!isLogin) {
-      setIsAuthenticated(true);
-    } else {
-      setError('Invalid credentials');
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Something went wrong");
+        return;
+      }
+
+      if (isLogin) {
+        localStorage.setItem("token", data.token);
+        setIsAuthenticated(true);
+        setFormData({ email: data.user.email, username: data.user.username, age: data.user.age || "" });
+      } else {
+        setIsLogin(true); // Switch to login after successful signup
+      }
+    } catch (error) {
+      setError("Error connecting to server");
     }
   };
 
+  // Handle logout
   const handleLogout = () => {
+    localStorage.removeItem("token");
     setIsAuthenticated(false);
-    setFormData({
-      email: '',
-      password: '',
-      name: '',
-      age: '',
-      cycleLength: '28',
-      periodLength: '5'
-    });
+    setFormData({ email: "", password: "", username: "", age: "" }); // Clear form data
   };
 
+  // Display profile page if authenticated
   if (isAuthenticated) {
     return (
       <div className="profile-container">
         <div className="profile-card">
-          <h2>Welcome, {formData.name || 'User'}!</h2>
+          <h2>Welcome, {formData.username || "User"}!</h2>
           <div className="profile-info">
             <p><strong>Email:</strong> {formData.email}</p>
             <p><strong>Age:</strong> {formData.age}</p>
@@ -86,7 +119,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
+          <h2>{isLogin ? "Login" : "Sign Up"}</h2>
           <p>Track your menstrual cycle with ease</p>
         </div>
 
@@ -99,8 +132,8 @@ const Profile = () => {
                 <label>Username</label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="username" // Fix: Use "name" instead of "username"
+                  value={formData.username}
                   onChange={handleChange}
                   placeholder="Enter your name"
                 />
@@ -146,18 +179,15 @@ const Profile = () => {
           </div>
 
           <button type="submit" className="auth-button">
-            {isLogin ? 'Login' : 'Sign Up'}
+            {isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
             {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <button
-              className="toggle-auth-button"
-              onClick={() => setIsLogin(!isLogin)}
-            >
-              {isLogin ? 'Sign Up' : 'Login'}
+            <button className="toggle-auth-button" onClick={() => setIsLogin(!isLogin)}>
+              {isLogin ? "Sign Up" : "Login"}
             </button>
           </p>
         </div>

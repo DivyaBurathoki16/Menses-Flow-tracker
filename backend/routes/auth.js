@@ -8,11 +8,11 @@ const router = express.Router();
 // 📝 Sign-up route
 router.post("/signup", async (req, res) => {
   try {
-    const { username, email, password } = req.body;  // Get data from request
+    const { username, age, email, password } = req.body;  // Get data from request
 
     const hashedPassword = await bcrypt.hash(password, 10);  // Hash password
 
-    const newUser = new User({ username, email, password: hashedPassword });  
+    const newUser = new User({ username, age, email, password: hashedPassword });  
     await newUser.save();  // Save to database
 
     res.status(201).json({ message: "User registered successfully!" });
