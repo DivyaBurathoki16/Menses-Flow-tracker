@@ -4,6 +4,41 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const router = express.Router();
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../Context/UserContext";
+import "./Profile.css";
+
+const Profile = () => {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove the token from storage
+    setUser(null); // Clear user data
+    navigate("/login"); // Redirect to login page
+  };
+
+  if (!user) {
+    return <p>Please log in to view your profile.</p>;
+  }
+
+  return (
+    <div className="profile-container">
+      <div className="profile-card">
+        <h2>Welcome, {user.username || "User"}!</h2>
+        <div className="profile-info">
+          <p><strong>Age:</strong> {user.age}</p>
+        </div>
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
 
 // 📝 Sign-up route
 router.post("/signup", async (req, res) => {

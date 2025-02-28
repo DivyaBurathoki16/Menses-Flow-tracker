@@ -121,6 +121,22 @@
     font-size: 1.5rem;
     font-weight: 600;
   }
+  .logout-button {
+    display: block;
+    background-color: #ff4b5c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .logout-button:hover {
+    background-color: #e04352;
+  }
+  
+  
   
   @media (max-width: 768px) {
     .profile-container {

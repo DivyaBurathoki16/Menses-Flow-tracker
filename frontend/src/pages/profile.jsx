@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../Context/UserContext"; 
 import "./Profile.css";
 
 const Profile = () => {
+  const { user, setUser, loading } = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -10,9 +13,12 @@ const Profile = () => {
     age: "",
   });
   const [error, setError] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch user data on component mount
+  // Debugging logs
+  console.log("User Context Value:", user);
+  console.log("Loading State:", loading);
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
@@ -25,12 +31,9 @@ const Profile = () => {
         const data = await response.json();
 
         if (response.ok) {
-          setFormData({
-            email: data.email,
-            username: data.username, // Fix: Use correct key
-            age: data.age || "",
-          });
-          setIsAuthenticated(true);
+          setUser(data);
+        } else {
+          localStorage.removeItem("token");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -38,33 +41,24 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [setUser]);
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target; // Fix: Use 'name' instead of 'username'
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    setError(""); // Clear error when user types
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/profile"); // Redirect to profile page after logout
   };
 
-  // Handle form submission
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!formData.email || !formData.password) {
-      setError("Please fill in all required fields");
-      return;
-    }
-
+    const url = isLogin ? "http://localhost:5000/auth/login" : "http://localhost:5000/auth/signup";
     try {
-      const url = isLogin
-        ? "http://localhost:5000/auth/login"
-        : "http://localhost:5000/auth/signup";
-
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,125 +67,112 @@ const Profile = () => {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        setError(data.message || "Something went wrong");
-        return;
-      }
-
-      if (isLogin) {
+      if (response.ok) {
         localStorage.setItem("token", data.token);
-        setIsAuthenticated(true);
-        setFormData({ email: data.user.email, username: data.user.username, age: data.user.age || "" });
+        setUser(data.user);
+        navigate("/profile"); // Redirect to profile after login/signup
       } else {
-        setIsLogin(true); // Switch to login after successful signup
+        setError(data.error || "Something went wrong");
       }
     } catch (error) {
-      setError("Error connecting to server");
+      setError("Server error, please try again later.");
     }
   };
 
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    setFormData({ email: "", password: "", username: "", age: "" }); // Clear form data
-  };
+  if (loading) return <p>Loading...</p>;
 
-  // Display profile page if authenticated
-  if (isAuthenticated) {
-    return (
-      <div className="profile-container">
+  return (
+    <div className="profile-container">
+      {user ? (
         <div className="profile-card">
-          <h2>Welcome, {formData.username || "User"}!</h2>
+          <h2>Welcome, {user.username || "User"}!</h2>
           <div className="profile-info">
-            <p><strong>Email:</strong> {formData.email}</p>
-            <p><strong>Age:</strong> {formData.age}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Age:</strong> {user.age || "N/A"}</p>
           </div>
           <button className="profile-button logout-button" onClick={handleLogout}>
             Logout
           </button>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="profile-container">
-      <div className="auth-card">
-        <div className="auth-header">
-          <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-          <p>Track your menstrual cycle with ease</p>
-        </div>
-
-        {error && <div className="error-message">{error}</div>}
-
-        <form onSubmit={handleSubmit} className="auth-form">
-          {!isLogin && (
-            <>
-              <div className="form-group">
-                <label>Username</label>
-                <input
-                  type="text"
-                  name="username" // Fix: Use "name" instead of "username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Age</label>
-                <input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
-                  placeholder="Enter your age"
-                  min="8"
-                  max="100"
-                />
-              </div>
-            </>
-          )}
-
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
+      ) : (
+        <div className="auth-card">
+          <div className="auth-header">
+            <h2>{isLogin ? "Login" : "Sign Up"}</h2>
+            <p>Track your menstrual cycle with ease</p>
           </div>
 
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
+          {error && <div className="error-message">{error}</div>}
 
-          <button type="submit" className="auth-button">
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="auth-form">
+            {!isLogin && (
+              <>
+                <div className="form-group">
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
 
-        <div className="auth-footer">
-          <p>
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <button className="toggle-auth-button" onClick={() => setIsLogin(!isLogin)}>
-              {isLogin ? "Sign Up" : "Login"}
+                <div className="form-group">
+                  <label>Age</label>
+                  <input
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    placeholder="Enter your age"
+                    min="8"
+                    max="100"
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <button type="submit" className="auth-button">
+              {isLogin ? "Login" : "Sign Up"}
             </button>
-          </p>
+          </form>
+
+          <div className="auth-footer">
+            <p>
+              {isLogin ? "Don't have an account? " : "Already have an account? "}
+              <button className="toggle-auth-button" onClick={() => setIsLogin(!isLogin)}>
+                {isLogin ? "Sign Up" : "Login"}
+              </button>
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
