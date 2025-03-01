@@ -1,12 +1,10 @@
-const mongoose = require("mongoose"); // Import Mongoose
+const mongoose = require("mongoose");
 
-// Define User Schema (structure of data)
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true }, // Username (unique)
-  age:{type: Number, required: true, unique: false},
-  email: { type: String, required: true, unique: true }, // Email (unique)
-  password: { type: String, required: true }, // Password (hashed)
-});
+  username: { type: String, required: true, unique: true },
+  age: { type: Number, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+}, { timestamps: true }); // Automatically adds createdAt and updatedAt
 
-// Export User Model
 module.exports = mongoose.model("User", UserSchema);

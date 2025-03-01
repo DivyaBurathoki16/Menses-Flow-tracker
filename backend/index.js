@@ -10,6 +10,7 @@ app.use(cors());  // Enable CORS for frontend-backend communication
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("✅ MongoDB connected!"))

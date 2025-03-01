@@ -4,7 +4,7 @@ import UserContext from "../Context/UserContext";
 import "./Profile.css";
 
 const Profile = () => {
-  const { user, setUser, loading } = useContext(UserContext);
+  const { user, setUser, loading, setLoading } = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -15,38 +15,39 @@ const Profile = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Debugging logs
-  console.log("User Context Value:", user);
-  console.log("Loading State:", loading);
-
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
+      setLoading(true);
       try {
         const response = await fetch("http://localhost:5000/auth/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const data = await response.json();
 
-        if (response.ok) {
-          setUser(data);
-        } else {
-          localStorage.removeItem("token");
+        if (!response.ok) {
+          throw new Error("Failed to fetch user");
         }
+
+        const data = await response.json();
+        setUser(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setUser(null);
+        localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [setUser]);
+  }, [setUser, setLoading]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/profile"); // Redirect to profile page after logout
+    navigate("/profile"); 
   };
 
   const handleChange = (e) => {
@@ -70,7 +71,7 @@ const Profile = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        navigate("/profile"); // Redirect to profile after login/signup
+        navigate("/profile"); 
       } else {
         setError(data.error || "Something went wrong");
       }
