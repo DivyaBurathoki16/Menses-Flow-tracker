@@ -1,20 +1,28 @@
-require("dotenv").config();  // Load environment variables from .env file
-const express = require("express");  // Import Express
-const mongoose = require("mongoose"); // Import Mongoose for MongoDB
-const cors = require("cors"); // Import CORS to allow frontend access
-
-const app = express();  // Initialize Express app
-app.use(express.json());  // Allows app to read JSON data from requests
-app.use(cors());  // Enable CORS for frontend-backend communication
- 
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
+const trackerRoutes = require("./routes/trackerauth"); // Ensure filename matches!
 
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/auth", authRoutes);
+app.use("/api/tracking", trackerRoutes);
+
+// Test route to check server status
+app.get("/", (req, res) => {
+  res.send("✅ Server is running!");
+});
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("✅ MongoDB connected!"))
-.catch(err => console.log("❌ MongoDB connection error:", err));
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("✅ MongoDB connected!"))
+  .catch((err) => console.log("❌ MongoDB connection error:", err));
 
 app.listen(5000, () => {
   console.log("🚀 Server running on http://localhost:5000");
