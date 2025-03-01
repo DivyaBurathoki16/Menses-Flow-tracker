@@ -8,44 +8,35 @@ export const TrackerProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [cycles, setCycles] = useState([]);
 
-  const API_BASE_URL = "http://localhost:5000/api/tracking"; // Change if deployed
+  const API_BASE_URL = "http://localhost:5000/api/tracking"; // Change this when deploying
 
-  // Fetch user-specific cycle data
+  // Fetch user-specific cycle history
   const loadUserCycles = async () => {
-    if (!user || !user._id) return; // Prevent API calls if user isn't available
+    if (!user || !user._id) return;
 
     try {
       const response = await axios.get(`${API_BASE_URL}/history/${user._id}`);
-      if (Array.isArray(response.data)) {
+      if (response.status === 200 && Array.isArray(response.data)) {
         setCycles(response.data);
       } else {
-        setCycles([]); // Fallback in case response is not an array
-        console.error("Unexpected response format:", response.data);
+        setCycles([]);
       }
     } catch (error) {
       console.error("Error fetching cycle history:", error);
-      setCycles([]); // Handle failure by resetting state
+      setCycles([]);
     }
   };
 
   // Add a new cycle
   const addCycle = async (cycleData) => {
-    if (!user || !user._id) {
-      console.error("User is not logged in.");
-      return;
-    }
+    if (!user || !user._id) return;
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/track`, {
+      await axios.post(`${API_BASE_URL}/track`, {
         ...cycleData,
         userId: user._id,
       });
-
-      if (response.data?.newCycle) {
-        setCycles((prev) => [response.data.newCycle, ...prev]);
-      } else {
-        console.error("Invalid response format:", response.data);
-      }
+      await loadUserCycles(); // Ensure fresh data is fetched
     } catch (error) {
       console.error("Error saving tracking data:", error);
     }
@@ -55,18 +46,15 @@ export const TrackerProvider = ({ children }) => {
   const deleteCycle = async (cycleId) => {
     try {
       await axios.delete(`${API_BASE_URL}/delete/${cycleId}`);
-      setCycles((prev) => prev.filter((cycle) => cycle._id !== cycleId));
+      await loadUserCycles(); // Ensure fresh data is fetched
     } catch (error) {
       console.error("Error deleting cycle:", error);
     }
   };
 
-  // Fetch cycles when user changes
   useEffect(() => {
-    if (user) {
-      loadUserCycles();
-    }
-  }, [user]); // Reload data when user changes
+    loadUserCycles();
+  }, [user]);
 
   return (
     <TrackerContext.Provider value={{ cycles, loadUserCycles, addCycle, deleteCycle }}>

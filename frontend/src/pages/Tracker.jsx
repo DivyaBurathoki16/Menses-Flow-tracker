@@ -1,19 +1,26 @@
-import React, { useState, useContext } from 'react';
-import { useTracker } from '../context/TrackerContext';
-import UserContext from '../context/UserContext';
-import './Tracker.css';
+import React, { useState, useEffect, useContext } from "react";
+import { useTracker } from "../context/TrackerContext";
+import UserContext from "../context/UserContext";
+import "./Tracker.css";
 
 const Tracker = () => {
   const { user } = useContext(UserContext);
-  const { cycles, addCycle, deleteCycle } = useTracker();
+  const { cycles, addCycle, deleteCycle, loadUserCycles } = useTracker();
 
   const [cycleData, setCycleData] = useState({
-    cycleStartDate: '',
-    cycleEndDate: '',
-    PeriodLengths: '5',
-    FlowIntensity: '',
-    Mood: '',
+    cycleStartDate: "",
+    cycleEndDate: "",
+    PeriodLengths: "5",
+    FlowIntensity: "",
+    Mood: "",
   });
+
+  // Fetch previous records when the component mounts
+  useEffect(() => {
+    if (user) {
+      loadUserCycles();
+    }
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +30,15 @@ const Tracker = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-      alert('Please log in to track your cycle.');
+      alert("Please log in to track your cycle.");
       return;
     }
-    addCycle(cycleData);
-    setCycleData({ cycleStartDate: '', cycleEndDate: '', PeriodLengths: '5', FlowIntensity: '', Mood: '' });
+    await addCycle(cycleData);
+    await loadUserCycles(); // Ensure UI updates with fresh data
+    setCycleData({ cycleStartDate: "", cycleEndDate: "", PeriodLengths: "5", FlowIntensity: "", Mood: "" });
   };
 
   return (
@@ -121,7 +129,10 @@ const Tracker = () => {
                     <p><strong>Flow Intensity:</strong> {cycle.FlowIntensity}</p>
                     <p><strong>Mood:</strong> {cycle.Mood}</p>
 
-                    <button onClick={() => deleteCycle(cycle._id)} className="delete-button">
+                    <button onClick={async () => {
+                      await deleteCycle(cycle._id);
+                      await loadUserCycles();
+                    }} className="delete-button">
                       Delete Record
                     </button>
                   </div>
@@ -139,4 +150,4 @@ const Tracker = () => {
   );
 };
 
-export default Tracker;
+export default Tracker; 
