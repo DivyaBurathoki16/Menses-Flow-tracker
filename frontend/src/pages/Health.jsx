@@ -1,229 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import './Health.css';
+import React, { useEffect, useState } from "react";
+import { useTracker } from "../Context/TrackerContext";
+import "./Health.css";
 
 const Health = () => {
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [cycles, setCycles] = useState([]);
+  const { cycles } = useTracker();
+  const [periodStartDate, setPeriodStartDate] = useState(null);
+  const [cycleEndDate, setCycleEndDate] = useState(null);
+  const cycleLength = 28; // Default cycle length
 
-  // Clear cycles when component mounts (page loads/refreshes)
   useEffect(() => {
-    localStorage.removeItem('menstrualCycles'); // Clear localStorage
-    setCycles([]); // Clear state
-  }, []);
+    console.log("📌 Fetched Cycles:", cycles); // ✅ Debugging
 
-  // Save cycles to localStorage whenever they change
-  useEffect(() => {
-    if (cycles.length > 0) {
-      localStorage.setItem('menstrualCycles', JSON.stringify(cycles));
+    if (cycles.length > 0 && cycles[0]?.cycleStartDate) {
+      let startDate = new Date(cycles[0].cycleStartDate);
+      let endDate = new Date(cycles[0].cycleEndDate);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        console.error("❌ Invalid Date Format:", cycles[0]);
+      } else {
+        setPeriodStartDate(startDate);
+        setCycleEndDate(endDate);
+      }
     }
   }, [cycles]);
 
-  const colorInfo = {
-    brightRed: {
-      color: '#FF0000',
-      meaning: 'Fresh blood from active menstruation. This is typical during the beginning or middle of your period and is considered healthy.',
-      when: 'Common at the start of menstruation',
-      icon: '🔴'
-    },
-    darkRed: {
-      color: '#8B0000',
-      meaning: 'Blood that has taken longer to leave the uterus and has oxidized. This is normal and common, especially at the beginning or end of your period.',
-      when: 'Usually seen at the start or end of period',
-      icon: '🔺'
-    },
-    brown: {
-      color: '#8B4513',
-      meaning: 'Old blood that has had time to oxidize. This is normal and common at the end of your period or during spotting.',
-      when: 'Typically appears at the end of period',
-      icon: '🟤'
-    },
-    black: {
-      color: '#000000',
-      meaning: 'Very old blood that has taken a long time to leave the uterus. Usually normal, but if accompanied by clots or foul odor, consult a doctor.',
-      when: 'Can appear at the beginning or end of period',
-      icon: '⚫'
-    },
-    pink: {
-      color: '#FFB6C1',
-      meaning: 'Blood mixed with cervical fluid. Could indicate low estrogen levels. If persistent, consult your healthcare provider.',
-      when: 'May indicate light spotting or implantation bleeding',
-      icon: '💗'
-    },
-    orange: {
-      color: '#FFA500',
-      meaning: 'Blood mixed with cervical fluid or infection. If accompanied by unusual odor or itching, consult a healthcare provider.',
-      when: 'May indicate infection if accompanied by other symptoms',
-      icon: '🟠'
-    },
-    gray: {
-      color: '#808080',
-      meaning: 'May indicate an infection or miscarriage. If you see gray blood, consult your healthcare provider immediately.',
-      when: 'Unusual color that requires medical attention',
-      icon: '⚪'
-    }
-  };
+  if (!periodStartDate || !cycleEndDate) {
+    return <p>Loading cycle data...</p>;
+  }
 
-  const remediesInfo = {
-    exercise: {
-      title: "Exercise",
-      icon: "🏃‍♀️",
-      description: "Regular exercise releases endorphins that act as natural painkillers.",
-      tips: [
-        "Gentle yoga or stretching",
-        "Light walking or swimming",
-        "Low-impact aerobic exercises",
-        "Pelvic exercises"
-      ]
+  // ✅ Helper function to format dates
+  const formatDate = (date) => date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+
+  // ✅ Define cycle phases
+  const phases = [
+    {
+      name: "Menstrual Phase",
+      start: periodStartDate,
+      end: new Date(periodStartDate.getTime() + 5 * 24 * 60 * 60 * 1000), 
+      description: "This phase involves shedding the uterine lining.",
     },
-    heat: {
-      title: "Heat Therapy",
-      icon: "🌡️",
-      description: "Heat helps relax uterine muscles and improves blood flow.",
-      tips: [
-        "Use a heating pad on lower abdomen",
-        "Take warm baths",
-        "Try heat patches for on-the-go relief",
-        "Warm compress on lower back"
-      ]
+    {
+      name: "Follicular Phase",
+      start: new Date(periodStartDate.getTime() + 5 * 24 * 60 * 60 * 1000), 
+      end: new Date(periodStartDate.getTime() + 13 * 24 * 60 * 60 * 1000), 
     },
-    nutrition: {
-      title: "Dietary Support",
-      icon: "🥗",
-      description: "Certain nutrients and supplements can help reduce cramp severity.",
-      tips: [
-        "Vitamin E supplements",
-        "Omega-3 fatty acids",
-        "Magnesium-rich foods",
-        "Stay hydrated with water"
-      ]
+    {
+      name: "Ovulation",
+      start: new Date(periodStartDate.getTime() + 13 * 24 * 60 * 60 * 1000), 
+      end: new Date(periodStartDate.getTime() + 14 * 24 * 60 * 60 * 1000), 
+      description: "The mature egg is released.",
     },
-    relaxation: {
-      title: "Stress Reduction",
-      icon: "🧘‍♀️",
-      description: "Managing stress can help reduce cramp intensity.",
-      tips: [
-        "Deep breathing exercises",
-        "Meditation",
-        "Regular sleep schedule",
-        "Gentle massage"
-      ]
-    }
-  };
-
-  const saveCycle = () => {
-    if (!lastPeriodDate) {
-      alert('Please enter your last period start date');
-      return;
-    }
-
-    const newCycle = {
-      id: Date.now(),
-      startDate: lastPeriodDate,
-      cycleLength: parseInt(cycleLength),
-      periodLength: parseInt(periodLength),
-      phases: calculateCyclePhases(lastPeriodDate, cycleLength)
-    };
-
-    setCycles([...cycles, newCycle]);
-    setLastPeriodDate('');
-    setCyclePhases(null);
-  };
-
-  const deleteCycle = (id) => {
-    const updatedCycles = cycles.filter(cycle => cycle.id !== id);
-    setCycles(updatedCycles);
-    if (updatedCycles.length === 0) {
-      localStorage.removeItem('menstrualCycles');
-    }
-  };
+    {
+      name: "Luteal Phase",
+      start: new Date(periodStartDate.getTime() + 14 * 24 * 60 * 60 * 1000), 
+      end: cycleEndDate, // End of cycle
+      description: "Hormonal changes prepare for pregnancy.",
+    },
+  ];
 
   return (
     <div className="health-container">
-      <div className="blood-color-section">
-        <h1>Period Blood Color Guide</h1>
-        <p className="guide-description">Click on a color to learn more about what it means for your menstrual health</p>
-        
-        <div className="color-circles">
-          {Object.entries(colorInfo).map(([key, info]) => (
-            <div
-              key={key}
-              className="color-circle-container"
-              onClick={() => setSelectedColor(key)}
-            >
-              <div
-                className={`color-circle ${selectedColor === key ? 'selected' : ''}`}
-                style={{ backgroundColor: info.color }}
-              >
-                <span className="color-icon">{info.icon}</span>
-              </div>
-              <span className="color-label">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-            </div>
+      <h1>Health Overview</h1>
+
+      {/* ✅ Display Cycle Phases */}
+      <section className="health-section">
+        <h2>Cycle Phases</h2>
+        <ul className="phase-list">
+          {phases.map((phase, index) => (
+            <li key={index}>
+              <h3 className="phase-title">{phase.name}</h3>
+              <p className="phase-date">
+                <strong>From:</strong> {formatDate(phase.start)}{" "}
+                <strong>To:</strong> {formatDate(phase.end)}
+              </p>
+              <p className="phase-description">{phase.description}</p>
+            </li>
           ))}
-        </div>
-
-        {selectedColor && (
-          <div className="color-info-modal-overlay" onClick={() => setSelectedColor(null)}>
-            <div className="color-info-modal" onClick={e => e.stopPropagation()}>
-              <button 
-                className="close-button"
-                onClick={() => setSelectedColor(null)}
-                aria-label="Close"
-              >
-                ×
-              </button>
-              <div className="color-info-content">
-                <div 
-                  className="color-preview"
-                  style={{ backgroundColor: colorInfo[selectedColor].color }}
-                >
-                  <span className="color-icon-large">{colorInfo[selectedColor].icon}</span>
-                </div>
-                <h2>{selectedColor.replace(/([A-Z])/g, ' $1').toLowerCase()}</h2>
-                <div className="info-section">
-                  <h3>When it occurs:</h3>
-                  <p>{colorInfo[selectedColor].when}</p>
-                </div>
-                <div className="info-section">
-                  <h3>What it means:</h3>
-                  <p>{colorInfo[selectedColor].meaning}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="cramps-section">
-        <h2>Managing Period Cramps</h2>
-        <p className="section-description">
-          Explore these effective remedies to help ease menstrual discomfort
-        </p>
-
-        <div className="remedies-grid">
-          {Object.entries(remediesInfo).map(([key, info]) => (
-            <div key={key} className="remedy-card">
-              <div className="remedy-icon">{info.icon}</div>
-              <h3>{info.title}</h3>
-              <p>{info.description}</p>
-              <ul className="remedy-tips">
-                {info.tips.map((tip, index) => (
-                  <li key={index}>{tip}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="additional-tips">
-          <h3>Important Tips</h3>
-          <ul>
-            <li>Avoid alcohol and caffeine during your period</li>
-            <li>Stay hydrated to minimize bloating</li>
-            <li>Consider over-the-counter pain relievers if needed</li>
-            <li>Maintain a regular exercise routine</li>
-          </ul>
-        </div>
-      </div>
+        </ul>
+      </section>
     </div>
   );
 };

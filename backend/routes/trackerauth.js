@@ -24,13 +24,27 @@ router.post("/track", async (req, res) => {
 // ✅ Get the latest cycle (excluding deleted ones)
 router.get("/latest/:userId", async (req, res) => {
   try {
-    const latestCycle = await Tracker.findOne({ userId: req.params.userId, isDeleted: false }).sort({ cycleStartDate: -1 });
-    if (!latestCycle) return res.status(404).json({ error: "No cycle data found" });
+    console.log("🔍 Fetching latest cycle for:", req.params.userId);
+
+    const latestCycle = await Tracker.findOne({
+      userId: req.params.userId,
+      isDeleted: false,
+    }).sort({ cycleStartDate: -1 });
+
+    if (!latestCycle) {
+      console.log("⚠️ No cycle found for this user.");
+      return res.status(404).json({ error: "No cycle data found" });
+    }
+
+    console.log("✅ Latest cycle found:", latestCycle);
     res.status(200).json(latestCycle);
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve tracking data" });
+    console.error("❌ Error fetching latest cycle:", error);
+    res.status(500).json({ error: "Failed to retrieve data" });
   }
 });
+
+
 
 // ✅ Get all past cycles (excluding deleted ones)
 router.get("/history/:userId", async (req, res) => {
@@ -38,6 +52,7 @@ router.get("/history/:userId", async (req, res) => {
     const history = await Tracker.find({ userId: req.params.userId, isDeleted: false }).sort({ cycleStartDate: -1 });
     res.status(200).json(history);
   } catch (error) {
+    console.error("❌ Error fetching history:", error);
     res.status(500).json({ error: "Failed to retrieve history" });
   }
 });
@@ -53,11 +68,12 @@ router.put("/update/:cycleId", async (req, res) => {
     if (!updatedCycle) return res.status(404).json({ error: "Cycle not found or deleted" });
     res.status(200).json({ message: "Cycle updated", updatedCycle });
   } catch (error) {
+    console.error("❌ Error updating cycle:", error);
     res.status(500).json({ error: "Failed to update cycle" });
   }
 });
 
-// ✅ Change this to DELETE for frontend compatibility
+// ✅ Soft delete a cycle
 router.delete("/delete/:cycleId", async (req, res) => {
   try {
     const deletedCycle = await Tracker.findOneAndUpdate(
@@ -68,6 +84,7 @@ router.delete("/delete/:cycleId", async (req, res) => {
     if (!deletedCycle) return res.status(404).json({ error: "Cycle not found or already deleted" });
     res.status(200).json({ message: "Cycle marked as deleted", deletedCycle });
   } catch (error) {
+    console.error("❌ Error deleting cycle:", error);
     res.status(500).json({ error: "Failed to delete cycle" });
   }
 });

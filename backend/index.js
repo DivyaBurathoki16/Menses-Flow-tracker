@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
-const trackerRoutes = require("./routes/trackerauth"); // Ensure filename matches!
+const trackerRoutes = require("./routes/trackerauth"); 
+
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/api/tracking", trackerRoutes);
+
 
 // Test route to check server status
 app.get("/", (req, res) => {
