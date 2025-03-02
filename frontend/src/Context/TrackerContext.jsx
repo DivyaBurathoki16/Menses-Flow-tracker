@@ -8,47 +8,40 @@ export const TrackerProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [cycles, setCycles] = useState([]);
 
-  const API_BASE_URL = "http://localhost:5000/api/tracking"; // Change this when deploying
+  const API_BASE_URL = "http://localhost:5000/api/tracking";
 
-  // Fetch user-specific cycle history
+  // ✅ Load user-specific cycle history (excluding deleted ones)
   const loadUserCycles = async () => {
     if (!user || !user._id) return;
 
     try {
       const response = await axios.get(`${API_BASE_URL}/history/${user._id}`);
-      if (response.status === 200 && Array.isArray(response.data)) {
-        setCycles(response.data);
-      } else {
-        setCycles([]);
-      }
+      setCycles(response.data);
     } catch (error) {
-      console.error("Error fetching cycle history:", error);
+      console.error("❌ Error fetching cycle history:", error);
       setCycles([]);
     }
   };
 
-  // Add a new cycle
+  // ✅ Add a new cycle
   const addCycle = async (cycleData) => {
     if (!user || !user._id) return;
 
     try {
-      await axios.post(`${API_BASE_URL}/track`, {
-        ...cycleData,
-        userId: user._id,
-      });
-      await loadUserCycles(); // Ensure fresh data is fetched
+      await axios.post(`${API_BASE_URL}/track`, { ...cycleData, userId: user._id });
+      await loadUserCycles();
     } catch (error) {
-      console.error("Error saving tracking data:", error);
+      console.error("❌ Error saving tracking data:", error);
     }
   };
 
-  // Delete a cycle
+  // ✅ Delete cycle (soft delete)
   const deleteCycle = async (cycleId) => {
     try {
-      await axios.delete(`${API_BASE_URL}/delete/${cycleId}`);
-      await loadUserCycles(); // Ensure fresh data is fetched
+      await axios.delete(`${API_BASE_URL}/delete/${cycleId}`); // ✅ Changed to DELETE
+      await loadUserCycles();
     } catch (error) {
-      console.error("Error deleting cycle:", error);
+      console.error("❌ Error deleting cycle:", error);
     }
   };
 

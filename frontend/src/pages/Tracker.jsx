@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useTracker } from "../context/TrackerContext";
-import UserContext from "../context/UserContext";
+import { useTracker } from "../Context/TrackerContext";
+import UserContext from "../Context/UserContext";
 import "./Tracker.css";
 
 const Tracker = () => {
@@ -10,12 +10,11 @@ const Tracker = () => {
   const [cycleData, setCycleData] = useState({
     cycleStartDate: "",
     cycleEndDate: "",
-    PeriodLengths: "5",
+    periodLength: "5", // Fixed naming
     FlowIntensity: "",
     Mood: "",
   });
 
-  // Fetch previous records when the component mounts
   useEffect(() => {
     if (user) {
       loadUserCycles();
@@ -37,8 +36,7 @@ const Tracker = () => {
       return;
     }
     await addCycle(cycleData);
-    await loadUserCycles(); // Ensure UI updates with fresh data
-    setCycleData({ cycleStartDate: "", cycleEndDate: "", PeriodLengths: "5", FlowIntensity: "", Mood: "" });
+    setCycleData({ cycleStartDate: "", cycleEndDate: "", periodLength: "5", FlowIntensity: "", Mood: "" });
   };
 
   return (
@@ -73,12 +71,12 @@ const Tracker = () => {
               </div>
 
               <div className="input-group">
-                <label htmlFor="PeriodLengths">Period Length (days)</label>
+                <label htmlFor="periodLength">Period Length (days)</label>
                 <input
                   type="number"
-                  id="PeriodLengths"
-                  name="PeriodLengths"
-                  value={cycleData.PeriodLengths}
+                  id="periodLength"
+                  name="periodLength"
+                  value={cycleData.periodLength}
                   onChange={handleInputChange}
                   min="2"
                   max="10"
@@ -125,13 +123,12 @@ const Tracker = () => {
                     <h3>Cycle Details</h3>
                     <p><strong>Start Date:</strong> {cycle.cycleStartDate}</p>
                     <p><strong>End Date:</strong> {cycle.cycleEndDate}</p>
-                    <p><strong>Period Length:</strong> {cycle.PeriodLengths} days</p>
+                    <p><strong>Period Length:</strong> {cycle.periodLength} days</p>
                     <p><strong>Flow Intensity:</strong> {cycle.FlowIntensity}</p>
                     <p><strong>Mood:</strong> {cycle.Mood}</p>
 
                     <button onClick={async () => {
                       await deleteCycle(cycle._id);
-                      await loadUserCycles();
                     }} className="delete-button">
                       Delete Record
                     </button>
@@ -150,4 +147,4 @@ const Tracker = () => {
   );
 };
 
-export default Tracker; 
+export default Tracker;
