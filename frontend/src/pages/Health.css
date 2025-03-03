@@ -1,4 +1,3 @@
-/* Health.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -6,9 +5,10 @@
 }
 
 body {
-  background: #fff0f6;
+  background: #fff0f6; /* Soft pastel pink */
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  color: #495057;
 }
 
 .health-container {
@@ -40,6 +40,55 @@ body {
   letter-spacing: 1px;
 }
 
+/* NavBar Styles */
+.health-navbar {
+  background-color: #ffe4e9;
+  border: 1px solid #ffc1e3;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.health-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center;
+  gap: 20px;
+}
+
+.health-navbar li {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #d63384;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.health-navbar li:hover {
+  color: #e83e8c;
+  transform: scale(1.05);
+}
+
+/* Next Period Prediction */
+.next-period {
+  background: #f5d6e8;
+  color: #d63384;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d63384;
+}
+
+/* Common Section Styles */
 .health-section {
   margin-bottom: 40px;
   padding: 25px;
@@ -57,6 +106,7 @@ body {
   padding-bottom: 5px;
 }
 
+/* Cycle Phases */
 .phase-list {
   list-style: none;
   padding: 0;
@@ -66,7 +116,7 @@ body {
   gap: 20px;
 }
 
-.phase-card {
+.phase-list li {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
@@ -74,7 +124,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.phase-card:hover {
+.phase-list li:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(232, 62, 140, 0.2);
 }
@@ -93,12 +143,23 @@ body {
 
 .phase-description {
   font-size: 1rem;
-  color: #495057;
   line-height: 1.5;
 }
 
-/* Recommendation Section Styles */
-.button-group {
+/* Nutrition Guide */
+.nutrition-guide .nutrition-list {
+  list-style: none;
+  padding: 0;
+}
+
+.nutrition-guide li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+/* Personalized Recommendations */
+.button-group,
+.btn-group {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -106,8 +167,7 @@ body {
 }
 
 .btn-group {
-  display: flex;
-  gap: 10px;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -136,7 +196,7 @@ body {
 
 .option-btn.active {
   background-color: #d63384;
-  color: #ffffff;
+  color: #fff;
   border-color: #d63384;
 }
 
@@ -172,13 +232,6 @@ body {
   color: #e83e8c;
 }
 
-.recommendation-result h3 {
-  margin-top: 0;
-  font-size: 1.8rem;
-  color: #e83e8c;
-  text-align: center;
-}
-
 .recommendation-details h4 {
   margin-bottom: 10px;
   font-size: 1.2rem;
@@ -198,12 +251,130 @@ body {
   text-align: center;
 }
 
-/* Symptom Tracker Styles */
+/* Mood Tracker & Mental Wellness */
+.mood-tracker {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.mood-tracker h2 {
+  font-size: 1.8rem;
+  color: #e83e8c;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ffc1e3;
+  padding-bottom: 5px;
+}
+
+.mood-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mood-btn {
+  padding: 8px 12px;
+  border: 1px solid #ffc1e3;
+  background: #ffe4e9;
+  border-radius: 5px;
+  color: #d63384;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.mood-btn:hover {
+  background: #f8bbd0;
+}
+
+.mood-btn.selected {
+  background: #d63384;
+  color: #fff;
+}
+
+.log-mood-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #d63384;
+  color: #fff;
+  border: 1px solid #d63384;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.log-mood-btn:hover {
+  background: #c0276d;
+}
+
+.logged-moods {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #f8bbd0;
+}
+
+.logged-moods ul {
+  list-style: none;
+  padding: 0;
+}
+
+.delete-mood-btn {
+  margin-left: 10px;
+  padding: 2px 6px;
+  background: #e83e8c;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s ease;
+}
+
+.delete-mood-btn:hover {
+  background: #d63384;
+}
+
+.mood-graph-toggle {
+  margin-top: 10px;
+}
+
+.mood-chart {
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #ffc1e3;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.mood-suggestions {
+  margin-top: 20px;
+  padding: 15px;
+  background: #ffeef0;
+  border: 1px solid #ffc1e3;
+  border-radius: 8px;
+  color: #d63384;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Symptom Tracker */
 .symptom-tracker {
   background: #f9f9f9;
   padding: 15px;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+.symptom-tracker h2 {
+  font-size: 1.8rem;
+  color: #e83e8c;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ffc1e3;
+  padding-bottom: 5px;
 }
 
 .symptom-buttons {
@@ -214,26 +385,36 @@ body {
 
 .symptom-btn {
   padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-  background: #ddd;
+  border: 1px solid #ffc1e3;
+  background: #ffe4e9;
   border-radius: 5px;
+  color: #d63384;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
+.symptom-btn:hover {
+  background: #f8bbd0;
+}
+
 .symptom-btn.selected {
-  background: #ff6f61;
-  color: white;
+  background: #d63384;
+  color: #fff;
 }
 
 .log-symptom-btn {
   margin-top: 10px;
   padding: 10px;
-  background: #ff6f61;
-  color: white;
-  border: none;
+  background: #d63384;
+  color: #fff;
+  border: 1px solid #d63384;
   cursor: pointer;
   border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.log-symptom-btn:hover {
+  background: #c0276d;
 }
 
 .logged-symptoms {
@@ -241,6 +422,7 @@ body {
   padding: 10px;
   background: #fff;
   border-radius: 8px;
+  border: 1px solid #f8bbd0;
 }
 
 .logged-symptoms ul {
@@ -263,22 +445,40 @@ body {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s ease;
 }
 
-/* Graph Container */
+.delete-entry-btn:hover {
+  background: #d63384;
+}
+
+/* Graph Containers */
 .symptom-graph {
   margin-top: 20px;
+  background: #fff;
+  border: 1px solid #ffc1e3;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-/* Graph Toggle Button */
-.toggle-graph-btn {
+.graph-toggle,
+.mood-graph-toggle {
   margin-top: 10px;
+}
+
+.toggle-graph-btn {
   padding: 8px 16px;
-  background: #ff6f61;
-  color: white;
-  border: none;
+  background: #d63384;
+  color: #fff;
+  border: 1px solid #d63384;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-graph-btn:hover {
+  background: #c0276d;
 }
 
 /* Suggestions Section */
@@ -286,17 +486,10 @@ body {
   margin-top: 20px;
   padding: 15px;
   background: #ffeef0;
-  border-radius: 8px;
   border: 1px solid #ffc1e3;
-}
-
-.symptom-suggestions h3 {
-  margin-top: 0;
+  border-radius: 8px;
   color: #d63384;
-}
-
-.symptom-suggestions ul {
-  list-style: disc;
-  padding-left: 20px;
-  color: #495057;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.5;
 }
