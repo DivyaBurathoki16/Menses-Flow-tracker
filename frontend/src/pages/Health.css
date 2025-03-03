@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #fff0f6; /* Light pastel pink background */
+  background: #fff0f6;
   margin: 0;
   font-family: 'Poppins', sans-serif;
 }
@@ -36,7 +36,7 @@ body {
   text-align: center;
   margin-bottom: 30px;
   font-size: 2.8rem;
-  color: #d63384; /* Vibrant pink */
+  color: #d63384;
   letter-spacing: 1px;
 }
 
@@ -94,9 +94,10 @@ body {
 .phase-description {
   font-size: 1rem;
   color: #495057;
+  line-height: 1.5;
 }
 
-/* Button Group Styles */
+/* Recommendation Section Styles */
 .button-group {
   display: flex;
   flex-direction: column;
@@ -139,7 +140,6 @@ body {
   border-color: #d63384;
 }
 
-/* Recommendation Result Styles */
 .recommendation-result {
   position: relative;
   margin-top: 30px;
@@ -198,9 +198,105 @@ body {
   text-align: center;
 }
 
-.loading {
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 50px;
-  color: #6c757d;
+/* Symptom Tracker Styles */
+.symptom-tracker {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.symptom-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.symptom-btn {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.symptom-btn.selected {
+  background: #ff6f61;
+  color: white;
+}
+
+.log-symptom-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #ff6f61;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logged-symptoms {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.logged-symptoms ul {
+  list-style: none;
+  padding: 0;
+}
+
+.logged-symptoms li {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-entry-btn {
+  margin-left: 10px;
+  padding: 2px 6px;
+  background: #e83e8c;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Graph Container */
+.symptom-graph {
+  margin-top: 20px;
+}
+
+/* Graph Toggle Button */
+.toggle-graph-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Suggestions Section */
+.symptom-suggestions {
+  margin-top: 20px;
+  padding: 15px;
+  background: #ffeef0;
+  border-radius: 8px;
+  border: 1px solid #ffc1e3;
+}
+
+.symptom-suggestions h3 {
+  margin-top: 0;
+  color: #d63384;
+}
+
+.symptom-suggestions ul {
+  list-style: disc;
+  padding-left: 20px;
+  color: #495057;
 }
