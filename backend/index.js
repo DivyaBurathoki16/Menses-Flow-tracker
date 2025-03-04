@@ -10,6 +10,9 @@ app.use(cors());
 // Import Routes
 const authRoutes = require("./routes/authRoutes"); 
 app.use("/api/auth", authRoutes); 
+const periodRoutes = require("./routes/periodRoutes");
+app.use("/api/period", periodRoutes);
+
 
 // MongoDB Connection
 mongoose

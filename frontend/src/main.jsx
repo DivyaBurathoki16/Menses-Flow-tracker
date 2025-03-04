@@ -1,17 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { UserProvider } from "./Context/UserContext"; 
-import { TrackerProvider } from "./Context/TrackerContext";
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { AuthProvider } from './contexts/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
 
-
-const root = ReactDOM.createRoot(document.getElementById("root")); 
-root.render(
-  <UserProvider>
-    <TrackerProvider>
-   
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <BrowserRouter>
         <App />
-     
-    </TrackerProvider>
-  </UserProvider>
+      </BrowserRouter>
+    </AuthProvider>
+  </React.StrictMode>
 );
