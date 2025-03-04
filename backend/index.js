@@ -9,11 +9,7 @@ app.use(cors());
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes"); 
-app.use("/api/auth", authRoutes); // ✅ Use the router
-const periodRoutes = require("./routes/periodRoutes");
-app.use("/api/period", periodRoutes);
-const healthRoutes = require("./routes/healthRoutes");
-app.use("/api/health", healthRoutes);
+app.use("/api/auth", authRoutes); 
 
 // MongoDB Connection
 mongoose
