@@ -7,6 +7,7 @@ dotenv.config();
 
 const userRoutes = require("./routes/userRoutes");
 const trackerRoutes = require("./routes/trackerRoutes"); // <-- Ensure this line exists
+const moodTrackerRoutes = require("./routes/moodTracker");
 
 const app = express();
 app.use(express.json()); // <-- Required for parsing JSON request bodies
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use("/api/users", userRoutes);
 app.use("/api/tracker", trackerRoutes); // <-- Ensure this line exists
+app.use("/api/mood", moodTrackerRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

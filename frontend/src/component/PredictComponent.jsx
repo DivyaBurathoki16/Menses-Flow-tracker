@@ -10,7 +10,7 @@ const PredictComponent = () => {
   const [prediction, setPrediction] = useState(null);
 
   useEffect(() => {
-    if (user && trackerData.length > 2) {
+    if (user && trackerData.length >= 3) {
       trainModel();
     }
   }, [user, trackerData]);
@@ -32,7 +32,12 @@ const PredictComponent = () => {
   return (
     <div className="predict-component">
       <h2>Cycle Predictions (AI-Enhanced)</h2>
-      {prediction ? (
+
+      {trackerData.length < 3 ? (
+        <p style={{ color: "red", fontWeight: "bold" }}>
+          🚨 You need at least <b>{3 - trackerData.length}</b> more period record(s) for accurate cycle predictions.
+        </p>
+      ) : prediction ? (
         <div>
           <p>🌸 Next Period Date: {prediction.nextPeriod}</p>
           <p>🌀 Follicular Phase: {prediction.follicularPhase}</p>
