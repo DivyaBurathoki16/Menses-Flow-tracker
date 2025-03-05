@@ -1,23 +1,40 @@
-// src/App.jsx
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import Home from '../src/pages/Home';
-import Profile from '../src/pages/Profile';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
+import TrackerPage from "./pages/TrackerPage"; // Import TrackerPage
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link> |{' '}
-        <Link to="/profile">Profile</Link>
+    <Router>
+      <nav style={styles.navbar}>
+        <Link to="/" style={styles.link}>Home</Link>
+        <Link to="/profile" style={styles.link}>Profile</Link>
+        <Link to="/tracker" style={styles.link}>Tracker</Link> {/* Added Tracker link */}
       </nav>
-      <hr />
+
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/tracker" element={<TrackerPage />} /> {/* Added Tracker route */}
       </Routes>
-    </div>
+    </Router>
   );
-}
+};
+
+// Basic inline styles for the navbar
+const styles = {
+  navbar: {
+    display: "flex",
+    justifyContent: "space-around",
+    padding: "1rem",
+    backgroundColor: "#007bff",
+  },
+  link: {
+    color: "white",
+    textDecoration: "none",
+    fontSize: "1.2rem",
+  },
+};
 
 export default App;
