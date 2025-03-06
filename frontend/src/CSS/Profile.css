@@ -1,0 +1,122 @@
+/* General Styling */
+.auth-page, .profile-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, white, #ffdde1); /* Soft gradient */
+  }
+  
+  /* Form Container */
+  form {
+    background: #fce4ec(255, 255, 255, 0.85); /* Glass effect */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    width: 350px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Heading */
+  h2 {
+    color: #ff4d6d;
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Input Fields */
+  input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Focus Effect */
+  input:focus, select:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+  }
+  
+  /* Buttons */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+  }
+  
+  /* Hover Effect for Buttons */
+  button:hover {
+    background-color: #e63950;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* Toggle Login/Signup */
+  p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  p button {
+    background: none;
+    color: #ff4d6d;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+  }
+  
+  p button:hover {
+    text-decoration: underline;
+  }
+  
+  /* Profile Page Styling */
+  .profile-page {
+    text-align: center;
+  }
+  
+  .profile-page h2 {
+    font-size: 2rem;
+    color: #ff4d6d;
+    font-weight: bold;
+  }
+  
+  .profile-page p {
+    font-size: 1.2rem;
+    color: #444;
+  }
+  
+  .profile-page button {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #ff4d6d;
+    margin-top: 15px;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 400px) {
+    form {
+      width: 90%;
+    }
+  }
+  

@@ -1,0 +1,73 @@
+/* PredictComponent.css */
+.predict-component {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #4a4a4a;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  h2 {
+    color: #ff4d6d;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background: #d63a53;
+    transform: scale(1.05);
+  }
+  
+  /* Prediction Results */
+  div > p {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #ff3b5c;
+  }
+  
+  /* Warning Message */
+  p[style*="color: red"] {
+    background: rgba(255, 77, 109, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .predict-component {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  

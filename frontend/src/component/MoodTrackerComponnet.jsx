@@ -2,6 +2,8 @@
 import { useState, useContext } from "react";
 import { MoodTrackerContext } from "../context/MoodTrackerContext";
 import AdvancedAnalytics from "./AdvancedAnalytics";
+import "../CSS/MoodTracker.css"
+
 
 const MoodTrackerComponent = () => {
   const { moodData, addMoodEntry, deleteMoodEntry } = useContext(MoodTrackerContext);
@@ -53,8 +55,9 @@ const MoodTrackerComponent = () => {
 
   return (
     <div className="mood-tracker">
+      
+      <div className="form-container">
       <h2>🧘 Mood & Wellness Tracker</h2>
-
       <form onSubmit={handleSubmit}>
         {/* Your form fields here */}
         <label>Mood:</label>
@@ -119,10 +122,9 @@ const MoodTrackerComponent = () => {
 
         <button type="submit">Log Mood</button>
       </form>
-
-      {/* Render the advanced analytics section */}
-      <AdvancedAnalytics />
-
+     </div>
+      
+     <div className="entries-container">
       <h3>Previous Mood Entries</h3>
       {moodData.length > 0 ? (
         <ul>
@@ -140,6 +142,11 @@ const MoodTrackerComponent = () => {
       ) : (
         <p>No mood data recorded yet.</p>
       )}
+     </div>
+     <div className="advanced-analytics">
+    <AdvancedAnalytics />
+   
+    </div> 
     </div>
   );
 };

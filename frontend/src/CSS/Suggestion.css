@@ -1,0 +1,53 @@
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Improved Buttons */
+.button-group button {
+  background: #ffafbd;
+  color: white;
+  border: none;
+  padding: 6px 14px; /* Smaller padding */
+  font-size: 14px;  /* Smaller text */
+  border-radius: 20px; /* Rounded shape */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+/* Button Hover Effect */
+.button-group button:hover {
+  background: #ff4d6d;
+  transform: scale(1.05);
+}
+
+/* Selected Button */
+.button-group button.selected {
+  background: #ff4d6d;
+  color: #fff;
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+/* Submit Button */
+.submit-button {
+  background: #444;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+.submit-button:hover {
+  background: #ff4d6d;
+  transform: scale(1.05);
+}

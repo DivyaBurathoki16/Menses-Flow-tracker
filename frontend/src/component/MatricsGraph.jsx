@@ -6,7 +6,7 @@ import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Lege
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 // Helper functions
-const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+const average = (arr) => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
 
 const encodeCategorical = (value, categories) => {
   const index = categories.indexOf(value);
@@ -18,12 +18,12 @@ const MetricsGraph = ({ moodData }) => {
     return <p>No data to display metrics.</p>;
   }
   
-  // Numeric fields (ensure these are stored as numbers)
+  // Numeric fields
   const energyLevels = moodData.map(entry => Number(entry.energyLevel));
   const stressLevels = moodData.map(entry => Number(entry.stressLevel));
   const sleepHours = moodData.map(entry => Number(entry.sleepHours));
   
-  // Categorical fields: exercise activity and social interaction
+  // Categorical fields
   const exerciseCategories = ["Yoga", "Walking", "Running", "Stretching", "No Exercise"];
   const socialCategories = ["None", "Minimal (Online/Texting)", "In-person Chat", "Group Hangout"];
   
@@ -61,16 +61,41 @@ const MetricsGraph = ({ moodData }) => {
     ],
   };
 
+  // 🎯 Responsive Chart Options
   const options = {
+    responsive: true,
+    maintainAspectRatio: false, // Allows better resizing
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          font: {
+            size: 12, // Adjust text size for readability
+          },
+        },
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 12, // Adjust text size for readability
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: {
+            size: 14,
+          },
+        },
       },
     },
   };
 
   return (
-    <div style={{ height: '300px', marginTop: '20px' }}>
+    <div style={{ height: '300px', width: '100%', marginTop: '20px' }}>
       <Bar data={data} options={options} />
     </div>
   );

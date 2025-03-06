@@ -1,20 +1,32 @@
-// src/components/AdvancedAnalytics.jsx
 import React, { useContext } from 'react';
 import MetricsGraph from './MatricsGraph';
 import DietWaterGraph from './DietWaterGraph';
-import MoodAnalytics from './MoodAnalytics'
+import MoodAnalytics from './MoodAnalytics';
 import { MoodTrackerContext } from '../context/MoodTrackerContext';
+import '../CSS/Graph.css'; // Import CSS
 
 const AdvancedAnalytics = () => {
   const { moodData } = useContext(MoodTrackerContext);
+
   return (
     <div className="advanced-analytics">
-      <h3>Mood Graph</h3>
-      <MoodAnalytics moodData={moodData} />
-      <h3>Combined Metrics</h3>
-      <MetricsGraph moodData={moodData} />
-      <h3>Diet & Water Intake</h3>
-      <DietWaterGraph moodData={moodData} />
+      
+      <div className="analytics-box">
+      <h4>Mood Graph</h4>
+        <MoodAnalytics moodData={moodData} />
+      </div>
+
+     
+      <div className="analytics-box">
+      <h4>Combined Metrics</h4>
+        <MetricsGraph moodData={moodData} />
+      </div>
+
+    
+      <div className="analytics-box">
+      
+        <DietWaterGraph moodData={moodData} />
+      </div>
     </div>
   );
 };

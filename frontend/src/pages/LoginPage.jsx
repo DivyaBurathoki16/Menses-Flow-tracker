@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import "../CSS/Login.css"
 
 const LoginPage = () => {
   const { login } = useContext(UserContext);

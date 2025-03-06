@@ -7,6 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MoodGraph = ({ moodData }) => {
   const moods = ["Happy", "Sad", "Stressed", "Relaxed", "Angry"];
+  
   // Count how many times each mood appears
   const counts = moods.map(mood => moodData.filter(entry => entry.mood === mood).length);
 
@@ -35,9 +36,25 @@ const MoodGraph = ({ moodData }) => {
     ],
   };
 
+  // 🎯 Chart Options for Responsiveness
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: {
+            size: 14
+          }
+        }
+      }
+    }
+  };
+
   return (
-    <div style={{ height: '300px', marginTop: '20px' }}>
-      <Pie data={data} />
+    <div style={{ height: '300px', width: '100%', marginTop: '20px' }}>
+      <Pie data={data} options={options} />
     </div>
   );
 };

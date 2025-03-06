@@ -1,0 +1,76 @@
+/* General Page Styling */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #fce4ec, #ffdde1); /* Soft gradient */
+  }
+  
+  /* Login Form Container */
+  form {
+    background: rgba(255, 255, 255, 0.85); /* Light glass effect */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    width: 350px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Login Heading */
+  .auth-page h2 {
+    color: #ff4d6d;
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Input Fields */
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Input Focus Effect */
+  input:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+  }
+  
+  /* Login Button */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hover Effect for Button */
+  button:hover {
+    background-color: #e63950;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 400px) {
+    form {
+      width: 90%;
+    }
+  }
+  

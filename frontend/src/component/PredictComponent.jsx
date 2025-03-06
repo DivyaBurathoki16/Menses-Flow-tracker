@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { PeriodTrackerContext } from "../context/PeriodTrackerContext";
 import { UserContext } from "../context/UserContext";
 import { trainCycleModel, predictNextCycle } from "../ml/mlModel";
+import "../CSS/PredictComponent.css"
 
 const PredictComponent = () => {
   const { user } = useContext(UserContext);

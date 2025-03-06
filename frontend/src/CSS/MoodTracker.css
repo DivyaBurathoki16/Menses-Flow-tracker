@@ -1,0 +1,56 @@
+.mood-tracker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Center elements for better alignment */
+  padding: 20px;
+}
+
+.form-container, 
+.entries-container {
+  flex: 1;
+  max-width: 600px;
+  background:  #fce4ec ;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; /* Smooth transitions */
+}
+
+.entries-container {
+  background: #fce4ec;
+  max-width: 700px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.advanced-analytics {
+  width: 100%;
+  margin-top: 30px;
+  background: #fce4ec;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌟 Mobile Optimizations */
+@media (max-width: 768px) {
+  .mood-tracker {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Reduce gap to make it compact */
+    padding: 15px;
+  }
+
+  .form-container, 
+  .entries-container {
+    width: 95%; /* Make full width with slight padding */
+    max-width: none;
+    padding: 15px;
+  }
+
+  .advanced-analytics {
+    width: 100%;
+    padding: 15px;
+  }
+}

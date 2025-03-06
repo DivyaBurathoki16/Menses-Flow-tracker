@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import "./SignupPage.css"
 
 const SignupPage = () => {
   const { signup } = useContext(UserContext);
