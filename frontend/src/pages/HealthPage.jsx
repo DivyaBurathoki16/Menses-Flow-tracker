@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { MoodTrackerProvider } from "../context/MoodTrackerContext";
 import MoodTrackerComponent from "../component/MoodTrackerComponnet";
+import PeriodSuggestionComponent from "../component/PeriodSuggestionComponent";
+import Chatbot from "../utils/Chatbot";
 
 const HealthPage = () => {
   const { user } = useContext(UserContext);
@@ -15,6 +17,8 @@ const HealthPage = () => {
       <div className="health-page">
         <h1>🌿 Health & Wellness</h1>
         <MoodTrackerComponent />
+        <PeriodSuggestionComponent/>
+        <Chatbot/>
       </div>
     </MoodTrackerProvider>
   );

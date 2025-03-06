@@ -1,7 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { UserContext } from "./UserContext";
-import { trainMoodModel } from "../ml/trainModel";
-import { predictMood } from "../ml/predict";
+
 
 export const MoodTrackerContext = createContext();
 
