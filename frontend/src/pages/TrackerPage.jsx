@@ -29,11 +29,12 @@ const TrackerPage = () => {
     <>
       <div className="tracker-page">
         <h2>Period Tracker</h2>
-        
-        <div className="tracker-container">
+
+        <div className="tracker-layout">
           {/* Period Entry Form */}
-          <div className="tracker-form">
-            <form onSubmit={handleSubmit}>
+          <div className="tracker-form-section">
+            <h3>Log Your Period</h3>
+            <form className="tracker-form" onSubmit={handleSubmit}>
               <label>
                 Last Period Date:
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
@@ -63,9 +64,7 @@ const TrackerPage = () => {
               <button type="submit">Add Entry</button>
             </form>
           </div>
-     
 
-        
           {/* Display User's Period Records */}
           <div className="records-section">
             <h3>Your Period Records</h3>
@@ -73,10 +72,10 @@ const TrackerPage = () => {
               <ul>
                 {trackerData.map((entry) => (
                   <li key={entry._id}>
-                    <strong>Date:</strong> {entry.lastPeriodDate} | 
-                    <strong> Duration:</strong> {entry.periodDuration} days | 
-                    <strong> Flow:</strong> {entry.flowIntensity} 
-                    <button onClick={() => deletePeriodEntry(entry._id)}>Delete</button>
+                    <span><strong>Date:</strong> {entry.lastPeriodDate}</span>
+                    <span><strong> Duration:</strong> {entry.periodDuration} days</span>
+                    <span><strong> Flow:</strong> {entry.flowIntensity}</span>
+                    <button className="delete-icon" onClick={() => deletePeriodEntry(entry._id)}>🗑️</button>
                   </li>
                 ))}
               </ul>
@@ -86,9 +85,9 @@ const TrackerPage = () => {
           </div>
         </div>
       </div>
-           {/* Prediction Component */}
-           <PredictComponent />
-      
+
+      {/* Prediction Component */}
+      <PredictComponent />
     </>
   );
 };

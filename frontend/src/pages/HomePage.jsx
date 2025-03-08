@@ -1,8 +1,11 @@
 import React from 'react'
+import CycleStages from '../component/CycleStages'
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div>HomePage
+      <CycleStages/>
+    </div>
   )
 }
 

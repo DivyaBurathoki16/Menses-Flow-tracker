@@ -1,0 +1,77 @@
+/* 🌸 Styling for Menstrual Cycle Cards */
+.cycle-stages-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+  }
+  
+  /* 📌 The Card */
+  .cycle-card {
+    width: 280px;
+    height: 350px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.5s;
+  }
+  
+  /* 🌿 Front and Back Faces */
+  .card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    position: absolute;
+    backface-visibility: hidden;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 🌺 Front Side */
+  .card-front {
+    background: #ffdde1;
+    border: 1px solid #ff7a8a;
+  }
+  
+  .stage-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .stage-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff4d6d;
+    margin-top: 10px;
+  }
+  
+  /* 🌼 Back Side */
+  .card-back {
+    background: #fff;
+    transform: rotateY(180deg);
+  }
+  
+  .card-back h3 {
+    color: #ff4d6d;
+    font-size: 22px;
+  }
+  
+  .card-back p {
+    font-size: 14px;
+    color: #333;
+    padding: 10px;
+  }
+  
+  /* 🌸 Flip Effect */
+  .cycle-card.flipped {
+    transform: rotateY(180deg);
+  }
+  
