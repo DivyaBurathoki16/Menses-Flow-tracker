@@ -7,6 +7,9 @@
   padding: 1rem 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000; /* Ensures it's above other elements */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar {
@@ -31,4 +34,59 @@
   background-color: #ff4d6d;
   box-shadow: 0 4px 8px rgba(255, 77, 109, 0.3);
   transform: scale(1.1);
+}
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(252, 228, 236, 0.9); /* Glassmorphism effect */
+  backdrop-filter: blur(10px); /* Adds blur effect */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensures it's above other elements */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* Spacing between links */
+}
+
+.nav-link {
+  color: #ff4d6d;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  color: white;
+  background-color: #ff4d6d;
+  box-shadow: 0 4px 8px rgba(255, 77, 109, 0.3);
+  transform: scale(1.1);
+}
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo Image */
+.logo {
+  width: 50px; /* Adjust size */
+  height: auto;
+}
+
+
+/* Adjust navbar for logo spacing */
+.navbar {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Centers the nav links */
+  align-items: center;
+  gap: 2rem;
 }
