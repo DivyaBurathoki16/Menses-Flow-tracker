@@ -3,6 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { PeriodTrackerContext } from "../context/PeriodTrackerContext";
 import PredictComponent from "../component/PredictComponent";
 import "../CSS/TrackerPage.css";
+import Calender from "../component/Calender"
 
 const TrackerPage = () => {
   const { user } = useContext(UserContext);
@@ -88,6 +89,7 @@ const TrackerPage = () => {
 
       {/* Prediction Component */}
       <PredictComponent />
+      <Calender/>
     </>
   );
 };
