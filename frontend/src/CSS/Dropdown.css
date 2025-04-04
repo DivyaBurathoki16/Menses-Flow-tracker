@@ -1,0 +1,90 @@
+/* General Container */
+.dropdown-container {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to right, #ffdde1, #ee9ca7);
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.dropdown-container h2 {
+    font-size: 2rem;
+    color: #d62839;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Dropdown List - 3x3 Grid Layout */
+.dropdown-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 15px; /* Space between items */
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Dropdown Item */
+.dropdown-item {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dropdown Button */
+.dropdown-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #d62839;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.dropdown-button:hover {
+    background-color: #b51c2d;
+    transform: translateY(-2px);
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* When Open, Show Content */
+.dropdown-content.visible {
+    max-height: 200px;
+    opacity: 1;
+}
+
+/* Responsive: Stack to 2x2 on tablets and 1x1 on small screens */
+@media (max-width: 900px) {
+    .dropdown-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .dropdown-list {
+        grid-template-columns: repeat(1, 1fr); /* 1 column on small screens */
+    }
+}

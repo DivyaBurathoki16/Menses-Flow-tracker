@@ -28,7 +28,15 @@ router.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "User registered successfully" });
+
+    // ✅ Return user data after registration
+    res.status(201).json({
+      _id: newUser._id,
+      name: newUser.name,
+      age: newUser.age,
+      gender: newUser.gender,
+      email: newUser.email,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -36,32 +44,32 @@ router.post("/register", async (req, res) => {
 
 // Login user
 router.post("/login", async (req, res) => {
-    try {
-      const { email, password } = req.body;
-  
-      // Check if user exists
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: "Invalid credentials" });
-      }
-  
-      // Compare passwords
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: "Invalid credentials" });
-      }
-  
-      // Return user details (excluding password)
-      res.status(200).json({
-        _id: user._id,
-        name: user.name,
-        age: user.age,
-        gender: user.gender,
-        email: user.email,
-      });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  try {
+    const { email, password } = req.body;
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
-  });
-  
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Return user details (excluding password)
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      age: user.age,
+      gender: user.gender,
+      email: user.email,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;

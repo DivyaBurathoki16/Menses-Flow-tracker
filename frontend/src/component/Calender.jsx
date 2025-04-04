@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PeriodTrackerContext } from "../context/PeriodTrackerContext";
-import "../CSS/Calendar.css";
+import "../CSS/Calender.css";
 
 const Calendar = () => {
   const { trackerData } = useContext(PeriodTrackerContext);
