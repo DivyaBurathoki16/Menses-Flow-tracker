@@ -4,6 +4,7 @@ import { PeriodTrackerContext } from "../context/PeriodTrackerContext";
 import PredictComponent from "../component/PredictComponent";
 import "../CSS/TrackerPage.css";
 import Calender from "../component/Calender"
+import BeforeT from "../component/BeforeT"
 
 const TrackerPage = () => {
   const { user } = useContext(UserContext);
@@ -23,7 +24,7 @@ const TrackerPage = () => {
   };
 
   if (!user) {
-    return <p>Please log in to track your period.</p>;
+    return <BeforeT/>;
   }
 
   return (

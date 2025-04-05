@@ -1,0 +1,87 @@
+.why-track-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    background: #fff8f8;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 182, 193, 0.3);
+    font-family: "Segoe UI", sans-serif;
+    color: #444;
+  }
+  
+  .header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header-section h1 {
+    color: #d63384;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header-section p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .benefits-section,
+  .awareness-section {
+    margin-bottom: 2rem;
+  }
+  
+  .benefits-section h2,
+  .awareness-section h2 {
+    color: #c2185b;
+    margin-bottom: 1rem;
+  }
+  
+  .benefits-section ul,
+  .awareness-section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .benefits-section li,
+  .awareness-section li {
+    background: #ffe4e1;
+    margin-bottom: 0.6rem;
+    padding: 0.7rem 1rem;
+    border-left: 5px solid #d63384;
+    border-radius: 5px;
+  }
+  
+  .awareness-section p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .cta-section {
+    text-align: center;
+    margin-top: 2rem;
+    background: #fff0f5;
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #d63384;
+    font-size: 1.1rem;
+  }
+
+  .login-btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #d63384;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: #b02a6d;
+  }
+  
+  
