@@ -3,13 +3,14 @@ import { UserContext } from "../context/UserContext";
 import { MoodTrackerProvider } from "../context/MoodTrackerContext";
 import MoodTrackerComponent from "../component/MoodTrackerComponnet";
 import PeriodSuggestionComponent from "../component/PeriodSuggestionComponent";
-import Chatbot from "../utils/Chatbot";
+import BeforeH from "../component/BeforeH"
+
 
 const HealthPage = () => {
   const { user } = useContext(UserContext);
 
   if (!user) {
-    return <p>Please log in to access the Mood Tracker.</p>;
+    return <BeforeH/>;
   }
 
   return (
@@ -18,7 +19,7 @@ const HealthPage = () => {
         <h1>🌿 Health & Wellness</h1>
         <MoodTrackerComponent />
         <PeriodSuggestionComponent/>
-        <Chatbot/>
+        
       </div>
     </MoodTrackerProvider>
   );

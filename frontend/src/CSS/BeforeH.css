@@ -1,0 +1,100 @@
+.why-track-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff0f6;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", sans-serif;
+    color: #4a148c;
+  }
+  
+  .header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header-section h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: #880e4f;
+  }
+  
+  .header-section p {
+    font-size: 1.1rem;
+    color: #6a1b9a;
+  }
+  
+  .benefits-section,
+  .awareness-section,
+  .cta-section {
+    margin-bottom: 2rem;
+  }
+  
+  .benefits-section h2,
+  .awareness-section h2 {
+    font-size: 1.6rem;
+    color: #6a1b9a;
+    margin-bottom: 1rem;
+    border-left: 6px solid #f06292;
+    padding-left: 12px;
+  }
+  
+  .benefits-section ul,
+  .awareness-section ul {
+    list-style: none;
+    padding-left: 1rem;
+  }
+  
+  .benefits-section li,
+  .awareness-section li {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    background-color: #fce4ec;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px rgba(200, 100, 200, 0.1);
+  }
+  
+  .awareness-section p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #4a148c;
+  }
+  
+  .cta-section {
+    text-align: center;
+    background-color: #f8bbd0;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .cta-section h3 {
+    font-size: 1.4rem;
+    color: #6a1b9a;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cta-section p {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: #4a148c;
+  }
+  
+  .signup-btn {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    background-color: #ab47bc;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-btn:hover {
+    background-color: #8e24aa;
+  }
+  
