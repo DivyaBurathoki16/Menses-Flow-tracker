@@ -1,0 +1,138 @@
+.blood-grid-container {
+    padding: 2rem;
+    background: #fce4ec;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .blood-card h3 {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  
+  .blood-heading {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: #ff4d4f;
+    text-shadow: 1px 1px #fff;
+  }
+  
+  /* Grid: Fixed 3 columns on wider screens, responsive on smaller */
+  .blood-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .blood-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .blood-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .blood-card {
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(2px);
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+    line-height: 1.3;
+  }
+  
+  .blood-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+  }
+  
+  .blood-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(2px);
+  }
+  
+  .blood-modal {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.3s ease;
+  }
+  
+  .blood-modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  .blood-modal p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.4;
+  }
+  
+  /* Circular close button */
+  .close-button {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #cc3366;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .close-button:hover {
+    background-color: #b02a57;
+    transform: scale(1.1);
+  }
+  
+  @keyframes popIn {
+    0% {
+      transform: scale(0.85);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
