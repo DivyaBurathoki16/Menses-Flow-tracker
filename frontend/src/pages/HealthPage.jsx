@@ -16,7 +16,7 @@ const HealthPage = () => {
   return (
     <MoodTrackerProvider>
       <div className="health-page">
-        <h1>🌿 Health & Wellness</h1>
+        
         <MoodTrackerComponent />
         <PeriodSuggestionComponent/>
         

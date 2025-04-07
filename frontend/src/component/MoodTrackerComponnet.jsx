@@ -135,7 +135,7 @@ const MoodTrackerComponent = () => {
                 if (window.confirm("Are you sure you want to delete this entry?")) {
                   deleteMoodEntry(entry._id);
                 }
-              }}>🗑 Delete</button>
+              }}>🗑️ </button>
             </li>
           ))}
         </ul>

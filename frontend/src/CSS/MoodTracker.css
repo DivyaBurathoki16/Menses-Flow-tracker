@@ -23,6 +23,29 @@
   overflow-y: auto;
   max-height: 500px;
 }
+.entries-container button {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 4px;
+  font-size: 14px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  line-height: 1;
+}
+
+
+.entries-container button:hover {
+  background-color: #d9363e;
+  transform: scale(1.05);
+}
 
 .advanced-analytics {
   width: 100%;
