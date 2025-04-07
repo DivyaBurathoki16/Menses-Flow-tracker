@@ -1,0 +1,61 @@
+/* 🌸 PCOS/PCOD Container */
+.pcos-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffe6eb, #fff0f5); /* Soft pink gradient */
+    color: #333;
+    border-radius: 1rem;
+  }
+  
+  /* 🩷 Headings */
+  h1, h2 {
+    text-align: center;
+    color: #cc3366;
+    margin-bottom: 1rem;
+  }
+  
+  /* 🧁 Section Cards */
+  .info-section,
+  .comparison-chart,
+  .tips-section {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* 📊 Comparison Chart */
+  .comparison-chart table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 15px;
+  }
+  
+  .comparison-chart th,
+  .comparison-chart td {
+    padding: 0.8rem;
+    border: 1px solid #f3c4d3;
+    text-align: center;
+    color: #4a4a4a;
+  }
+  
+  .comparison-chart th {
+    background-color: #ffdde6;
+    color: #b30047;
+  }
+  
+  /* 🌟 Lifestyle Tips */
+  .tips-section ul {
+    list-style-type: '🌿 ';
+    padding-left: 1.5rem;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .tips-section li {
+    margin-bottom: 0.5rem;
+    color: #444;
+  }
+  

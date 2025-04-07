@@ -1,6 +1,7 @@
 import React from 'react'
 import CycleStages from '../component/CycleStages'
 import Dropdown from '../component/Dropdown'
+import PcodInfo from "../component/PcodInfo"
 
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
     <div>
       <CycleStages/>
       <Dropdown/>
+      <PcodInfo/>
     </div>
   )
 }
