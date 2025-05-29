@@ -19,7 +19,26 @@
   
   p {
     font-size: 16px;
-    color: #4a4a4a;
+    color: #4a4a4a;.predict-component {
+  background: #fff7fb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 600px;
+  margin: auto;
+}
+
+.predict-component h2 {
+  color: #d63384;
+  margin-bottom: 1rem;
+}
+
+.prediction-result p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
     margin-bottom: 10px;
   }
   

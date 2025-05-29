@@ -2,9 +2,12 @@
 .pcos-container {
     padding: 2rem;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ffe6eb, #fff0f5); /* Soft pink gradient */
+    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
     color: #333;
     border-radius: 1rem;
+    max-width: 1200px;
+    margin: auto;
+    transition: all 0.3s ease-in-out;
   }
   
   /* 🩷 Headings */
@@ -12,6 +15,7 @@
     text-align: center;
     color: #cc3366;
     margin-bottom: 1rem;
+    font-size: 1.8rem;
   }
   
   /* 🧁 Section Cards */
@@ -23,6 +27,14 @@
     border-radius: 1rem;
     margin: 1.5rem 0;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .info-section:hover,
+  .comparison-chart:hover,
+  .tips-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(204, 51, 102, 0.15);
   }
   
   /* 📊 Comparison Chart */
@@ -31,6 +43,7 @@
     border-collapse: collapse;
     margin-top: 1rem;
     font-size: 15px;
+    overflow-x: auto;
   }
   
   .comparison-chart th,
@@ -39,11 +52,16 @@
     border: 1px solid #f3c4d3;
     text-align: center;
     color: #4a4a4a;
+    transition: background-color 0.3s ease;
   }
   
   .comparison-chart th {
     background-color: #ffdde6;
     color: #b30047;
+  }
+  
+  .comparison-chart td:hover {
+    background-color: #fff0f5;
   }
   
   /* 🌟 Lifestyle Tips */
@@ -57,5 +75,69 @@
   .tips-section li {
     margin-bottom: 0.5rem;
     color: #444;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+  }
+  
+  .tips-section li:hover {
+    background-color: #ffe6eb;
+    padding-left: 1.2rem;
+  }
+  
+  /* 📱 Responsive Media Queries */
+  @media (max-width: 768px) {
+    .pcos-container {
+      padding: 1rem;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    h2 {
+      font-size: 1.25rem;
+    }
+  
+    .comparison-chart table {
+      font-size: 14px;
+    }
+  
+    .tips-section ul {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .comparison-chart table,
+    .comparison-chart thead,
+    .comparison-chart tbody,
+    .comparison-chart th,
+    .comparison-chart td,
+    .comparison-chart tr {
+      display: block;
+      width: 100%;
+    }
+  
+    .comparison-chart th {
+      background-color: #ffe6eb;
+      color: #b30047;
+    }
+  
+    .comparison-chart td {
+      text-align: left;
+      border: none;
+      border-bottom: 1px solid #f3c4d3;
+      position: relative;
+      padding-left: 50%;
+    }
+  
+    .comparison-chart td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 1rem;
+      font-weight: bold;
+      color: #cc3366;
+    }
   }
   

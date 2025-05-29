@@ -6,13 +6,13 @@ const cors = require("cors");
 dotenv.config();
 
 const userRoutes = require("./routes/userRoutes");
-const trackerRoutes = require("./routes/trackerRoutes"); // <-- Ensure this line exists
+const trackerRoutes = require("./routes/trackerRoutes");
 const moodTrackerRoutes = require("./routes/moodTracker");
 const chatRoutes = require("./routes/chatRoutes");
 
 
 const app = express();
-app.use(express.json()); // <-- Required for parsing JSON request bodies
+app.use(express.json());
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI, {

@@ -3,12 +3,8 @@
     background: #fce4ec;
     min-height: 100vh;
     font-family: 'Segoe UI', sans-serif;
-  }
-  .blood-card h3 {
-    color: #ffffff;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-    font-weight: 700;
-    font-size: 1.2rem;
+    max-width: 900px;  
+    margin: 0 auto;    
   }
   
   .blood-heading {
@@ -20,7 +16,7 @@
     text-shadow: 1px 1px #fff;
   }
   
-  /* Grid: Fixed 3 columns on wider screens, responsive on smaller */
+  
   .blood-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -41,29 +37,42 @@
   }
   
   .blood-card {
-    padding: 1.5rem;
-    border-radius: 1.25rem;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff4d6d, #ff7c91);
+    padding: 1rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     color: #fff;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(2px);
-    min-height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
     word-wrap: break-word;
-    line-height: 1.3;
+    line-height: 1.2;
+    margin: auto;
+    position: relative;
   }
   
+  .blood-card h3 {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  
+
   .blood-card:hover {
-    transform: translateY(-5px) scale(1.03);
+    transform: translateY(-5px) scale(1.05);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
   }
   
+
   .blood-modal-overlay {
     position: fixed;
     inset: 0;
@@ -99,7 +108,7 @@
     line-height: 1.4;
   }
   
-  /* Circular close button */
+
   .close-button {
     position: absolute;
     top: 12px;
